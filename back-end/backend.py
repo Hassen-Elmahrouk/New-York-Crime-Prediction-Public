@@ -106,7 +106,7 @@ def create_df(hour,month,day,year,latitude,longitude,place,vic_age,vic_race,vic_
 
     df = pd.DataFrame(data,columns=columns)
     return df.values
-data= create_df(7, 10, 12, 2016, 40.636991, -74.134093, '', 50, "WHITE HISPANIC", "F")
+#data= create_df(7, 10, 12, 2016, 40.636991, -74.134093, '', 50, "WHITE HISPANIC", "F")
 
 crime_types = {0:'Violation',1:"Misdemeanor",2:"Felony"}
 
@@ -118,4 +118,3 @@ def predict(data):
       return crime_types[pred]
    else:
       return crime_types[pred]
-print(predict(data))

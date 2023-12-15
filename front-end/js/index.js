@@ -31,22 +31,72 @@ map.on('pointermove', function (event) {
     $('#mouse3857').text(ol.coordinate.toStringXY(coord3857, 2));
     $('#mouse4326').text(ol.coordinate.toStringXY(coord4326, 5));
 });
-var location_array = []
+
+
+var location_array = [];
+
+// Create a vector layer to add features
+var vectorLayer = new ol.layer.Vector({
+    source: new ol.source.Vector(),
+    style: new ol.style.Style({
+        image: new ol.style.Circle({
+            radius: 5,
+            fill: new ol.style.Fill({ color: 'red' }),
+            stroke: new ol.style.Stroke({ color: 'white', width: 2 }),
+        }),
+    }),
+});
+
+
+// Create a draw interaction for points
+var draw = new ol.interaction.Draw({
+    source: vectorLayer.getSource(),
+    type: 'Point',
+});
+
+// Add the draw interaction to the map, but deactivate it initially
+map.addInteraction(draw);
+draw.setActive(false);
+
+// Listen for the 'drawend' event to handle the drawn point
+draw.on('drawend', function (event) {
+    var coord = event.feature.getGeometry().getCoordinates();
+    location_array = coord;
+    document.getElementById('lon').value = location_array[0];
+    document.getElementById('lat').value = location_array[1];
+
+    // Deactivate the draw interaction
+    draw.setActive(false);
+});
+
+// ...
+
+// Listen for single click to activate the draw interaction
 map.on('singleclick', function (evt) {
     onSingleClick(evt);
 });
+
+// Modify onSingleClick function
 var onSingleClick = function (evt) {
     var coord = evt.coordinate;
     console.log(coord);
-    location_array = coord
-    document.getElementById('lon').value = location_array[0]
-    document.getElementById('lat').value = location_array[1]
-}
+    location_array = coord;
 
+    // Clear existing features
+    vectorLayer.getSource().clear();
+
+    var feature = new ol.Feature(new ol.geom.Point(coord));
+    vectorLayer.getSource().addFeature(feature);
+
+    // Activate the draw interaction
+    draw.setActive(true);
+};
+
+    // Add the point feature to the vector layer
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Geolocation
 
-function prediction() {
+ function prediction() {
     gender_elements = document.getElementsByName("Gender")
     for (i = 0; i < gender_elements.length; i++) {
         if (gender_elements[i].checked) {
@@ -59,9 +109,14 @@ function prediction() {
             race = race_elements[i].value;
         }
     }
+    
     age = document.getElementById("age").value
     date = document.getElementById("date").value
-    console.log(document.getElementById("date").valueAsDate)
+    dateParts = date.split(" ")[0].split("-");
+    console.log( dateParts)
+    year = parseInt(dateParts[0]);
+    month = parseInt(dateParts[1]);
+    day = parseInt(dateParts[2]);
     hour = document.getElementById("hour").value
     place_elements = document.getElementsByName("Place")
     for (i = 0; i < place_elements.length; i++) {
@@ -82,9 +137,9 @@ function prediction() {
                 gender: gender,
                 race: race,
                 age: age,
-                day: 12,
-                month: 10,
-                year: 2016,
+                day: day,
+                month: month,
+                year: year,
                 hour: hour,
                 place: place,
                 lat: location_array[0],
