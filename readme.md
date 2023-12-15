@@ -1,44 +1,62 @@
-# Crime Prediction Web Application
+# Crime Predictor Web Application
 
 ## Overview
 
-This project is a simple web application designed to predict crime probability in New York City based on user-provided information, location, and time. Leveraging the NYPD Complaint Data Historic Dataset, the application utilizes a predictive model to estimate the likelihood of different types of crimes occurring in specific scenarios. The dataset spans from 2006 to 2019, containing 6,901,167 complaints and 35 columns, providing comprehensive spatial and temporal information about crime occurrences, along with detailed descriptions and penal classifications.
+Welcome to the Crime Predictor web application! This project aims to provide users with a simple yet effective tool to predict crime probability in New York City based on user information, location, and time. Leveraging the NYPD Complaint Data Historic Dataset, the application utilizes machine learning techniques to analyze and predict potential crime occurrences.
 
 ## Dataset
 
-The core of this project relies on the NYPD Complaint Data Historic Dataset, encompassing valid felony, misdemeanor, and violation crimes reported to the New York City Police Department over a span of 14 years. The dataset serves as a robust foundation, offering insights into the dynamics of crime in the city and facilitating the development of a predictive model to enhance public safety awareness.
+The foundation of this project is the NYPD Complaint Data Historic Dataset, a comprehensive collection of valid felony, misdemeanor, and violation crimes reported to the New York City Police Department (NYPD) spanning from 2006 to 2019. With a total of 6,901,167 complaints and 35 columns, this dataset encompasses spatial and temporal information about crime occurrences, along with detailed descriptions and penal classifications.
 
 ## Setup
 
-To run this web application locally, follow these setup instructions:
+To get started with the Crime Predictor web application, follow these simple setup instructions:
 
-1. Create a virtual environment named 'nyc':
+1. Clone the repository to your local machine:
 
-```bash
-python -m venv nyc
-```
+   ```bash
+   git clone https://github.com/your-username/crime-predictor.git
+   cd crime-predictor
+   ```
 
-2. Activate the virtual environment:
+2. Set up a virtual environment:
 
-```bash
-nyc\Scripts\activate
-```
+   ```bash
+   python -m venv nyc
+   ```
 
-3. Navigate to the 'back-end' directory:
+3. Activate the virtual environment:
 
-```bash
-cd back-end
-```
+   - For Windows:
 
-4. Run the application using Uvicorn with automatic reload:
+     ```bash
+     nyc\Scripts\activate
+     ```
 
-```bash
-uvicorn main:app --reload
-```
+   - For Unix or MacOS:
 
-These steps ensure a clean and isolated environment for running the project, and the Uvicorn command initiates the backend server with automatic reloading for a smooth development experience.
+     ```bash
+     source nyc/bin/activate
+     ```
 
-## Usage
+4. Install project dependencies:
 
-Once the setup is complete, access the web application through your browser. Provide user information, location, and time to receive crime probability predictions based on the trained model.
+   ```bash
+   pip install -r requirements.txt
+   ```
 
+5. Navigate to the back-end directory:
+
+   ```bash
+   cd back-end
+   ```
+
+6. Run the application using Uvicorn:
+
+   ```bash
+   uvicorn main:app --reload
+   ```
+
+
+
+Feel free to explore the various features and functionalities provided by the application, and don't hesitate to provide feedback or contribute to the project.
